@@ -21,6 +21,9 @@
     "vite-plugin-solid": "^2.8.2"
   },
   "dependencies": {
+    "@fontsource-variable/plus-jakarta-sans": "^5.0.20",
+    "@fontsource-variable/quicksand": "^5.0.17",
+    "@fontsource/poppins": "^5.0.12",
     "@solidjs/router": "^0.13.0",
     "solid-js": "^1.8.11"
   }
