@@ -30,7 +30,7 @@ jobs:
       - name: Build 🏗️
         run: bun run build
         env:
-          BASE_PATH: /ropasses/
+          NODE_ENV: production
       - name: Disable Jekyll
         run: touch ./dist/.nojekyll
       - name: Deploy 🚀
