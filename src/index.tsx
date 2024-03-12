@@ -1,7 +1,8 @@
 /* @refresh reload */
 import { render } from "solid-js/web";
 import { Router, Route } from "@solidjs/router";
-import { La } from "solid-js";
+// Supports weights 200-800
+import "@fontsource-variable/plus-jakarta-sans";
 
 import "./styles/globals.scss";
 import User from "./pages/User";
@@ -19,7 +20,7 @@ render(
     <>
       <Navbar />
       <Router>
-        <Route path="/users/:id" component={User} />
+        <Route path="/users/:userId" component={User} />
       </Router>
     </>
   ),
