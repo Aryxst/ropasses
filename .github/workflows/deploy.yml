@@ -1,30 +1,30 @@
-name: Deploy Solid to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
       - main
-
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v1
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+      - name: Setup Bun 🫓
+        uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - run: bun i
-      - run: bun run build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Install and Build 🔧
+        env:
+          BASE_PATH: /ropasses/
+        run: |
+          bun install
+          bun run build
+      - name: Create .nojekyll
+        run: touch ./dist/.nojekyll
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: ./dist
-  deploy:
-    environment:
-      name: github-pages
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          folder: ./dist # The folder the action should deploy.
