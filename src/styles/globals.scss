@@ -3,71 +3,53 @@
 @tailwind utilities;
 
 :root {
-  --bg-primary: #232527;
-  --bg-secondary: #191b1d;
-  --bg-tertiary: #393b3d;
-  --bg-fort: #656668;
-  --bg-border-secondary: #111214;
-  --text-primary: #ffffff;
-  --text-secondary: #bdbebe;
+ --bg-primary: #232527;
+ --bg-secondary: #191b1d;
+ --bg-tertiary: #393b3d;
+ --bg-fort: #656668;
+ --bg-border-secondary: #111214;
+ --text-primary: #ffffff;
+ --text-secondary: #bdbebe;
 }
 
 body {
-  color: var(--text-primary);
-  background: var(--bg-primary);
-  font-family: "Plus Jakarta Sans Variable", sans-serif;
-  font-weight: 400;
+ color: var(--text-primary);
+ background: var(--bg-primary);
+ font-family: 'Plus Jakarta Sans Variable', sans-serif;
+ font-weight: 400;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+ .text-balance {
+  text-wrap: balance;
+ }
 }
 .robux-icon {
-  background-image: url(https://images.rbxcdn.com/e3fed0d20e85a51518b2756e66343a5e-economy_small_dark.svg);
-  background-position: 0 -20px;
-  margin-bottom: 2px;
-  margin-right: -2px;
-  background-repeat: no-repeat;
-  background-size: auto auto;
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  vertical-align: middle;
+ background-image: url(https://images.rbxcdn.com/e3fed0d20e85a51518b2756e66343a5e-economy_small_dark.svg);
+ background-position: 0 -20px;
+ margin-bottom: 2px;
+ margin-right: -2px;
+ background-repeat: no-repeat;
+ background-size: auto auto;
+ width: 20px;
+ height: 20px;
+ display: inline-block;
+ vertical-align: middle;
 }
 span {
-  [data-bind="item.Label.OwnershipPreposition"],
-  [data-bind="item.Info.ItemForSale"] {
-    color: var(--text-secondary);
-  }
+ [data-bind='item.Label.OwnershipPreposition'],
+ [data-bind='item.Info.ItemForSale'] {
+  color: var(--text-secondary);
+ }
 }
 .creator-name {
 }
 .text-link {
-  display: inline;
-  &:hover {
-    text-decoration: underline;
-  }
-}
-@keyframes shake {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(1deg);
-  }
-  50% {
-    transform: rotate(0deg);
-  }
-  75% {
-    transform: rotate(-1deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+ display: inline;
+ &:hover {
+  text-decoration: underline;
+ }
 }
 section {
-  width: 50%;
-  display: inline-flex;
+ display: inline-flex;
 }
