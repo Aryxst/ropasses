@@ -28,7 +28,7 @@ jobs:
       - name: Install Dependencies 🔧
         run: bun install
       - name: Build 🏗️
-        run: bun run build
+        run: bun run build:prod
         env:
           NODE_ENV: production
       - name: Disable Jekyll

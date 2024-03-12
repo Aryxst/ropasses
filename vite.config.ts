@@ -17,6 +17,4 @@ export default defineConfig({
   build: {
     target: "esnext",
   },
-
-  base: import.meta.env.NODE_ENV === "production" ? "/ropasses/" : "/",
 });
