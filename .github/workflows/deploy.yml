@@ -8,8 +8,17 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 jobs:
-  build:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -18,12 +27,12 @@ jobs:
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - name: Install and Build 🔧
+      - name: Install Dependencies 🔧
+        run: bun install
+      - name: Build 🏗️
+        run: bun run build
         env:
           BASE_PATH: /ropasses/
-        run: |
-          bun install
-          bun run build
       - name: Disable Jekyll
         run: touch ./dist/.nojekyll
       - name: Deploy 🚀
