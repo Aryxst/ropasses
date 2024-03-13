@@ -1,35 +1,90 @@
-import { useParams } from '@solidjs/router';
+import { useSearchParams } from '@solidjs/router';
 import { getUserGamepasses, getUserInfo, getUserThumbnail } from '../lib/requests';
-import { Match, Show, Switch, createResource, For, createSignal } from 'solid-js';
+import { Match, Show, Switch, createResource, For, createSignal, createEffect } from 'solid-js';
 import { ItemElement } from '../types';
-
+import numericInput from '../components/numeric-input';
+let reRenders = 0;
 export default function User() {
- const userId = Number(useParams().userId);
+ const [searchParams, setSearchParams] = useSearchParams();
+ const userId = Number(searchParams.userId);
  const [data] = createResource(userId, getUserGamepasses);
  const [userInfo] = createResource(userId, getUserInfo);
  const [avatar] = createResource(userId, getUserThumbnail);
+
  const temp = {
   rolimonsRef: 'https://www.rolimons.com/player/' + userId,
   actualPasses: 0,
  };
- const filterFunctions: Record<string, (item: ItemElement) => boolean> = {
-  isUserCreator: (item) => item.Creator.Id !== userId,
+ // TODO: split in checkers(from checkboxes) example "isUserCreator" and filter example "valueIsBetween"
+ const checkerFunctions: Record<string, (item: ItemElement) => boolean> = {
+  NotUserCreator: item => {
+   if (item.Creator.Id == userId) return false;
+   return true;
+  },
  };
- const [activeFilters, setActiveFilters] = createSignal<Record<string, boolean>>({
-  ...Object.fromEntries(Object.values(filterFunctions).map((fn) => [fn.name, false])),
+ const filterFunctions: Record<string, (item: ItemElement) => boolean> = {
+  robux: item => {
+   return item.Product.PriceInRobux >= activeFilters().robux.min && item.Product.PriceInRobux <= activeFilters().robux.max;
+  },
+ };
+ const [activeFilters, setActiveFilters] = createSignal<Record<string, any>>({
+  ...Object.fromEntries(
+   Object.entries(checkerFunctions).map(([key]) => {
+    return [key, false];
+   }),
+  ),
+  robux: { min: 0, max: Infinity },
+  NotUserCreator: false,
  });
+
  const FiltersComponent = () => (
   <div>
-   {Object.keys(filterFunctions).map((key) => (
+   <h2>Filters:</h2>
+   <hr />
+   {Object.keys(checkerFunctions).map(key => {
+    return (
+     <div>
+      <input type='checkbox' id={key} name={key} value={key} checked={activeFilters()?.[key]} onChange={() => setActiveFilters(pre => ({ ...pre, [key]: !pre[key] }))} />
+      <label for={key}>{key}</label>
+     </div>
+    );
+   })}
+   <h2>Robux</h2>
+   <div class='text-black'>
     <div>
-     <input type='checkbox' id={key} name={key} value={key} checked={activeFilters()?.[key]} onChange={() => setActiveFilters({ ...activeFilters(), [key]: !activeFilters()[key] })} />
-     <label for={key}>{key}</label>
+     <label for='min_robux'>Min:</label>
+     <input
+      onInput={e => {
+       numericInput(e);
+       setActiveFilters(pre => ({ ...pre, robux: { max: pre.robux.max, min: Number(e.currentTarget.value) } }));
+       if (!e.target.value) {
+        setActiveFilters(pre => ({ ...pre, robux: { max: pre.robux.max, min: 0 } }));
+       }
+      }}
+      name='min_robux'
+      id='min_robux'
+     />
     </div>
-   ))}
+
+    <div>
+     <label for='max_robux'>Max:</label>
+     <input
+      onInput={e => {
+       numericInput(e);
+       setActiveFilters(pre => ({ ...pre, robux: { min: pre.robux.min, max: Number(e.currentTarget.value) } }));
+       if (!e.target.value) {
+        setActiveFilters(pre => ({ ...pre, robux: { min: pre.robux.min, max: Infinity } }));
+       }
+      }}
+      name='max_robux'
+      id='max_robux'
+     />
+    </div>
+   </div>
   </div>
  );
  return (
-  <main class='min-h-screen'>
+  <main class='dark min-h-screen'>
    <Show when={data.loading || userInfo.loading}>
     <p>Loading...</p>
    </Show>
@@ -80,10 +135,14 @@ export default function User() {
      <section class='w-full p-4 xl:w-1/2'>
       <ul class='flex w-max flex-row flex-wrap gap-x-3 lg:ml-8'>
        <For
-        each={data()?.Data.Items.filter((item) => {
+        each={data()?.Data.Items.filter(item => {
          const conditions: boolean[] = [];
          for (const [key, value] of Object.entries(activeFilters())) {
-          if (value) {
+          reRenders++;
+          console.log(key, value);
+          if (typeof value == 'boolean') {
+           conditions.push(checkerFunctions[key](item));
+          } else if (typeof value == 'object') {
            conditions.push(filterFunctions[key](item));
           }
          }
@@ -100,14 +159,16 @@ export default function User() {
           {/* Init Card Description */}
           <div>
            <div class='card-info flex flex-col py-2'>
-            <div class='card-info-name font-bold '>
+            {/* TODO: fix the work wrapping */}
+            <div class='card-info-name h-[45px] break-before-column overflow-hidden text-ellipsis font-bold' title={Item.Name}>
              <a href={Item.AbsoluteUrl} rel='noopener noreferrer'>
               {Item.Name}
              </a>
             </div>
+
             <div class='card-info-label w-full text-xs'>
              <span data-bind='item.Label.OwnershipPreposition'>By:</span>{' '}
-             <a href={Creator.CreatorProfileLink} rel='noopener noreferrer' class='text-link w-min overflow-hidden text-ellipsis whitespace-nowrap'>
+             <a href={Creator.CreatorProfileLink} rel='noopener noreferrer' class='text-link w-min'>
               {Creator.Name}
              </a>
             </div>

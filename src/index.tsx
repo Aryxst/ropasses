@@ -19,14 +19,14 @@ render(
   <>
    <Navbar />
    <Router>
-    <Route
-     path='/users/:userId'
-     component={User}
-     matchFilters={{
-      userId: /^\d+$/, // only allow numbers
-     }}
-    />
     <Route path='/' component={Home} />
+    <Route
+     path='/user/'
+     component={User}
+     /*      matchFilters={{
+      userId: /^\d+$/, // only allow numbers
+     }} */
+    />
    </Router>
    <Footer />
   </>
