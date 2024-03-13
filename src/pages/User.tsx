@@ -17,10 +17,7 @@ export default function User() {
  };
  // TODO: split in checkers(from checkboxes) example "isUserCreator" and filter example "valueIsBetween"
  const checkerFunctions: Record<string, (item: ItemElement) => boolean> = {
-  NotUserCreator: item => {
-   if (item.Creator.Id == userId) return false;
-   return true;
-  },
+  NotUserCreator: item => item.Creator.Id == userId,
  };
  const filterFunctions: Record<string, (item: ItemElement) => boolean> = {
   robux: item => {
