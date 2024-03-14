@@ -24,7 +24,7 @@ render(
      path='/user/'
      component={User}
      matchFilters={{
-      id: /^\d+$/, // only allow numbers
+      id: /^\d+$/, // only allow numbers, in this case useless
      }}
     />
    </Router>
