@@ -122,7 +122,7 @@ export default function User() {
            </a>
           </span>
           <span class='col-span-2 w-full'>
-           <a rel='noopener noreferrer' class='text-link text-blue-500' href={`https://www.roblox.com/users/${userId}/inventory/#!/game-passes`}>
+           <a rel='noopener noreferrer' class='text-link text-blue-500' href={`https://www.roblox.com/users/${userId()}/inventory/#!/game-passes`}>
             User Gamepasses Reference
            </a>
           </span>
