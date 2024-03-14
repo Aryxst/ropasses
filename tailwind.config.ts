@@ -12,6 +12,7 @@ const config: Config = {
    addBase({
     h1: { fontSize: '32px', lineHeight: '44.8px' },
     h2: { fontSize: '20px' },
+    h3: { fontSize: '18px' },
    });
   }),
  ],

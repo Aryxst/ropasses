@@ -28,6 +28,7 @@
     "@fontsource-variable/quicksand": "^5.0.17",
     "@fontsource/poppins": "^5.0.12",
     "@solidjs/router": "latest",
+    "daisyui": "latest",
     "solid-js": "^1.8.11"
   }
 }
