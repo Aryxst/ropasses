@@ -1,5 +1,4 @@
 import { render } from 'solid-js/web';
-import { lazy } from 'solid-js';
 import { Router, Route } from '@solidjs/router';
 import Home from './pages/Home';
 import User from './pages/User';
