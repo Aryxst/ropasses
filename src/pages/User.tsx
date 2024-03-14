@@ -116,7 +116,7 @@ export default function User() {
           <span>All Passes: {data()?.Data.Items.length}</span>
           <span>
            Rolimons Reference:{' '}
-           <a rel='prefetch' href={'https://www.rolimons.com/player/' + userId} class='text-link'>
+           <a rel='prefetch' href={'https://www.rolimons.com/player/' + userId()} class='text-link'>
             {userInfo()?.name}
             <img src='https://www.rolimons.com/favicon.ico' class='inline' width={20} height={20} />
            </a>
