@@ -1,6 +1,9 @@
+import { useNavigate } from '@solidjs/router';
 import numericInput from '../hooks/numeric-input';
 
 export default function Navbar() {
+ const navigate = useNavigate();
+
  return (
   <nav class='sticky top-0 flex h-[42px] items-center justify-between border-b-[1px] border-b-[var(--bg-border-secondary)] bg-[var(--bg-secondary)] p-4 text-white'>
    <h1 class='cursor-pointer text-2xl font-bold'>
@@ -17,7 +20,7 @@ export default function Navbar() {
       onInput={e => {
        numericInput(e);
       }}
-      onKeyPress={e => e.key === 'Enter' && window.location.assign(`${import.meta.env.BASE_URL}user?id=${e.currentTarget.value}`)}
+      onKeyPress={e => e.key === 'Enter' && navigate('/user?id=' + e.currentTarget.value, { replace: true })}
      />
      <div class='absolute bottom-[10px] left-auto right-auto size-[20px] pl-[2px]'>
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' height='18' width='18' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>

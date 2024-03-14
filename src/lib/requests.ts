@@ -12,18 +12,18 @@ const getUserGamepasses = async (userId: number) => {
 };
 const getUserInfo = async (userId: number) => {
  const cachedData = sessionStorage.getItem(`user_info_${userId}`);
- if (cachedData && !cachedData.includes('err')) {
+ if (cachedData && !cachedData.includes('error')) {
   return JSON.parse(cachedData) as UserAPIResponse;
  }
  const res = await fetch(`https://users.roproxy.com/v1/users/${userId}`, {
   cache: 'no-store',
  });
  const data: UserAPIResponse = await res.json();
- sessionStorage.setItem(`user_info_${userId}`, JSON.stringify(data));
+ !cachedData && sessionStorage.setItem(`user_info_${userId}`, JSON.stringify(data));
  return data;
 };
-const getUserThumbnails = async (userIds: number[]) => {
- const res = await fetch(`https://thumbnails.roproxy.com/v1/users/avatar?userIds=${userIds.join(',')}&size=420x420&format=Png&isCircular=false`, {
+const getUserThumbnail = async (userId: number) => {
+ const res = await fetch(`https://thumbnails.roproxy.com/v1/users/avatar?userIds=${userId}&size=420x420&format=Png&isCircular=false`, {
   cache: 'force-cache',
   headers: {
    'Cache-Control': 'max-age=300', // Cache for 5 minutes
@@ -38,4 +38,4 @@ const searchUsers = async (query: string) => {
  return data;
 };
 
-export { getUserGamepasses, getUserInfo, getUserThumbnails, searchUsers };
+export { getUserGamepasses, getUserInfo, getUserThumbnail, searchUsers };
