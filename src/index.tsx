@@ -2,12 +2,12 @@ import { render } from 'solid-js/web';
 import { lazy } from 'solid-js';
 import { Router, Route } from '@solidjs/router';
 import Home from './pages/Home';
+import User from './pages/User';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import '@fontsource-variable/plus-jakarta-sans';
 import './styles/globals.scss';
 
-const User = lazy(() => import('./pages/User'));
 const root = document.getElementById('root');
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
