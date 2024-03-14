@@ -5,7 +5,7 @@ export default function Navbar() {
   <nav class='sticky top-0 flex h-[42px] items-center justify-between border-b-[1px] border-b-[var(--bg-border-secondary)] bg-[var(--bg-secondary)] p-4 text-white'>
    <h1 class='cursor-pointer text-2xl font-bold'>
     <a href={import.meta.env.BASE_URL}>
-     <img src='/src/assets/favicon.ico' class='h-8 w-8' />
+     <img src='favicon.ico' class='h-8 w-8' />
     </a>
    </h1>
    <ul class='flex w-full flex-row gap-4 md:gap-8'>
