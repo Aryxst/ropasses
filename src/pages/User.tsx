@@ -1,6 +1,6 @@
 import { useSearchParams } from '@solidjs/router';
 import { getUserGamepasses, getUserInfo, getUserThumbnails } from '../lib/requests';
-import { Match, Show, Switch, createResource, For, createSignal } from 'solid-js';
+import { Match, Show, Switch, createResource, For, createSignal, createEffect } from 'solid-js';
 import { ItemElement } from '../types';
 import numericInput from '../hooks/numeric-input';
 let reRenders = 0;
@@ -10,9 +10,8 @@ export default function User() {
  const [data] = createResource(userId, getUserGamepasses);
  const [userInfo] = createResource(userId, getUserInfo);
  const [avatar] = createResource([userId], getUserThumbnails);
-
+ const [activeFilters, setActiveFilters] = createSignal<Record<string, any>>({ robux: { min: 0, max: Infinity }, creator: '' });
  const temp = {
-  rolimonsRef: 'https://www.rolimons.com/player/' + userId,
   actualPasses: 0,
  };
  // TODO: split in checkers(from checkboxes) example "isUserCreator" and filter example "valueIsBetween"
@@ -21,8 +20,6 @@ export default function User() {
   { name: 'creator', type: 'range', fn: item => (activeFilters().creator !== '' ? item.Creator.Name.toLowerCase().includes(activeFilters().creator.toLowerCase()) : true) },
   { name: 'IsUserCreator', type: 'condition', fn: item => (activeFilters().IsUserCreator ? item.Creator.Id != userId : true) },
  ];
- const [activeFilters, setActiveFilters] = createSignal<Record<string, any>>({ robux: { min: 0, max: Infinity }, creator: '' });
-
  const FiltersComponent = () => (
   <div class='w-full xl:p-2'>
    <h2 class='font-bold'>Filters</h2>
@@ -119,7 +116,7 @@ export default function User() {
           <span>All Passes: {data()?.Data.Items.length}</span>
           <span>
            Rolimons Reference:{' '}
-           <a rel='prefetch' href={temp.rolimonsRef} class='text-link'>
+           <a rel='prefetch' href={'https://www.rolimons.com/player/' + userId} class='text-link'>
             {userInfo()?.name}
             <img src='https://www.rolimons.com/favicon.ico' class='inline' width={20} height={20} />
            </a>
