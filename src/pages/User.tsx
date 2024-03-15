@@ -11,9 +11,6 @@ export default function User() {
  const [userInfo] = createResource(userId, getUserInfo);
  const [avatar] = createResource(userId, getUserThumbnail);
  const [activeFilters, setActiveFilters] = createSignal<Record<string, any>>({ robux: { min: 0, max: Infinity }, creator: '' });
- const temp = {
-  actualPasses: 0,
- };
  // TODO: split in checkers(from checkboxes) example "isUserCreator" and filter example "valueIsBetween"
  const filters: { name: string; type: 'range' | 'condition'; fn: (item: ItemElement) => boolean }[] = [
   { name: 'robux', type: 'range', fn: item => item.Product.PriceInRobux >= activeFilters().robux.min && item.Product.PriceInRobux <= activeFilters().robux.max },
@@ -108,11 +105,17 @@ export default function User() {
            Robux Spent:{' '}
            {data()?.Data.Items.reduce((acc, item) => {
             if (item.Creator.Id == userId()) return acc;
-            temp.actualPasses++;
+
             return acc + (item.Product.PriceInRobux || 0);
            }, 0)}
           </span>
-          <span>Bought Passes: {temp.actualPasses}</span>
+          <span>
+           Bought Passes:{' '}
+           {data()?.Data.Items.reduce((acc, item) => {
+            if (item.Creator.Id == userId()) return acc;
+            return acc + 1;
+           }, 0)}
+          </span>
           <span>All Passes: {data()?.Data.Items.length}</span>
           <span>
            Rolimons Reference:{' '}
