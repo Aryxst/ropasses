@@ -19,7 +19,7 @@ const getUserInfo = async (userId: number) => {
   cache: 'no-store',
  });
  const data: UserAPIResponse = await res.json();
- !cachedData && sessionStorage.setItem(`user_info_${userId}`, JSON.stringify(data));
+ (!cachedData || cachedData.includes('error')) && sessionStorage.setItem(`user_info_${userId}`, JSON.stringify(data));
  return data;
 };
 const getUserThumbnail = async (userId: number) => {
