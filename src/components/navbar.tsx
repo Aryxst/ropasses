@@ -1,4 +1,4 @@
-import { useNavigate } from '@solidjs/router';
+import { A, useNavigate } from '@solidjs/router';
 import numericInput from '../hooks/numeric-input';
 
 export default function Navbar() {
@@ -7,9 +7,9 @@ export default function Navbar() {
  return (
   <nav class='sticky top-0 flex h-[42px] items-center justify-between border-b-[1px] border-b-[var(--bg-border-secondary)] bg-[var(--bg-secondary)] p-4 text-white'>
    <h1 class='cursor-pointer text-2xl font-bold'>
-    <a href={import.meta.env.BASE_URL} aria-label='Go to Home'>
+    <A href='/' aria-label='Go to Home'>
      <img src='favicon.ico' width={32} height={32} alt='Ropasses Logo' />
-    </a>
+    </A>
    </h1>
    <ul class='flex w-full flex-row gap-4 md:gap-8'>
     <li class='ml-auto mr-auto max-sm:pl-2'>
