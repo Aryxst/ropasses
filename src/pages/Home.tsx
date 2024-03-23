@@ -5,11 +5,6 @@ export default function Home() {
     <h1 class='font-bold'>RoPasses</h1>
     <br />
     <p>RoPasses is a simple website that enables retrieving very minimal extra insights on a roblox user's owned gamepasses.</p>
-    <div class='text-right text-sm hover:underline'>
-     Download the extension
-     <br />
-     <span class='text-center'>(Coming soon!)</span>
-    </div>
    </div>
   </main>
  );
