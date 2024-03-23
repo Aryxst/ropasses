@@ -158,7 +158,7 @@ export default function User() {
            </div>
            <div>
             <div class='card-info flex flex-col py-2'>
-             <div class='card-info-name  h-[46px] break-before-column overflow-hidden text-ellipsis font-bold' title={Item.Name}>
+             <div class='card-info-name  max-h-[46px] break-before-column overflow-hidden text-ellipsis font-bold' title={Item.Name}>
               <a href={Item.AbsoluteUrl} aria-label='Go to Item' rel='noopener noreferrer'>
                {Item.Name}
               </a>
