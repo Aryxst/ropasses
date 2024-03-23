@@ -3,7 +3,6 @@ import { getUserGamepasses, getUserInfo, getUserThumbnail } from '../lib/request
 import { Match, Show, Switch, createResource, For, createSignal } from 'solid-js';
 import { ItemElement } from '../types';
 import numericInput from '../hooks/numeric-input';
-import { Title } from '@solidjs/meta';
 
 export default function User() {
  const [searchParams, setSearchParams] = useSearchParams();
@@ -86,7 +85,6 @@ export default function User() {
       <p class='p-2'>Error Occured</p>
      </Match>
      <Match when={data() && data()?.Data.Items && userInfo()}>
-      <Title>{userInfo()?.name} Gamepasses</Title>
       <section class='w-full xl:w-1/2'>
        <div class='mx-auto mt-0 p-0'>
         <div class='inline-flex items-center pl-8'>
