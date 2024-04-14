@@ -14,7 +14,7 @@ export interface InventoryData {
 }
 export interface ItemElement {
  AssetRestrictionIcon: null;
- Item: ItemItem;
+ Item: Item;
  Creator: Creator;
  Product: Product;
  PrivateServer: null;
@@ -28,7 +28,7 @@ export interface Creator {
  CreatorProfileLink: string;
  HasVerifiedBadge: boolean;
 }
-export interface ItemItem {
+export interface Item {
  AssetId: number;
  UniverseId: null;
  Name: string;
