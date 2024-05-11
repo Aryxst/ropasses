@@ -1,8 +1,8 @@
-export interface InventoryAPIResponse {
+export interface IInventoryAPIResponse {
  IsValid: boolean;
- Data: InventoryData;
+ Data: IInventoryData;
 }
-export interface InventoryData {
+export interface IInventoryData {
  Start: number;
  End: number;
  Page: number;
@@ -10,25 +10,25 @@ export interface InventoryData {
  previousPageCursor: string;
  ItemsPerPage: number;
  PageType: string;
- Items: ItemElement[];
+ Items: IItemElement[];
 }
-export interface ItemElement {
+export interface IItemElement {
  AssetRestrictionIcon: null;
- Item: Item;
- Creator: Creator;
- Product: Product;
+ Item: IItem;
+ Creator: ICreator;
+ Product: IProduct;
  PrivateServer: null;
- Thumbnail: Thumbnail;
+ Thumbnail: IThumbnail;
  UserItem: null;
 }
-export interface Creator {
+export interface ICreator {
  Id: number;
  Name: string;
  Type: number;
  CreatorProfileLink: string;
  HasVerifiedBadge: boolean;
 }
-export interface Item {
+export interface IItem {
  AssetId: number;
  UniverseId: null;
  Name: string;
@@ -46,7 +46,7 @@ export interface Item {
  LastUpdatedBy: null;
  AudioUrl: null;
 }
-export interface Product {
+export interface IProduct {
  Id: number;
  PriceInRobux: number;
  PremiumDiscountPercentage: null;
@@ -66,14 +66,14 @@ export interface Product {
  NoPriceText: null;
  IsFree: boolean;
 }
-export interface Thumbnail {
+export interface IThumbnail {
  Final: boolean;
  Url: string;
  RetryUrl: string;
  IsApproved: boolean;
 }
 // Singular APIs
-export interface ThumnailAPIResponse {
+export interface IThumnailAPIResponse {
  data: {
   targetId: number;
   state: string;
@@ -81,13 +81,13 @@ export interface ThumnailAPIResponse {
   version: string;
  }[];
 }
-export interface UserAPIResponse {
+export interface IUserAPIResponse {
  hasVerifiedBadge: boolean;
  id: number;
  name: string;
  displayName: string;
 }
-export interface UserSearchAPIResponse {
+export interface IUserSearchAPIResponse {
  previousPageCursor: null;
  nextPageCursor: string;
  data: { previousUsernames: string[]; hasVerifiedBadge: boolean; id: number; name: string; displayName: string }[];
